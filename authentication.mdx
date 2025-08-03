@@ -1,0 +1,73 @@
+---
+title: 'Authentication'
+description: 'How to authenticate with the Uncash API'
+---
+
+## API Token Authentication
+
+The Uncash API uses API token authentication. All requests must include your API token in the `Authorization` header.
+
+### Header Format
+
+```http
+Authorization: Bearer uc_your_api_token_here
+```
+
+### Token Format
+
+API tokens are prefixed with `uc_` followed by a 40-character string:
+
+```
+uc_1234567890abcdef1234567890abcdef12345678
+```
+
+<Warning>
+Keep your API tokens secure and never expose them in client-side code or public repositories.
+</Warning>
+
+## Getting Your API Token
+
+Contact our support team to get your API token:
+- Email: support@uncash.com
+- Include your business details and use case
+
+## Making Authenticated Requests
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET https://api.uncash.io/api/v1/health \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/health', {
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+```
+
+```python Python
+import requests
+
+headers = {
+    'Authorization': 'Bearer uc_your_api_token_here'
+}
+
+response = requests.get('https://api.uncash.io/api/v1/health', headers=headers)
+```
+
+</CodeGroup>
+
+## Error Responses
+
+If authentication fails, you'll receive a 401 error:
+
+```json
+{
+  "success": false,
+  "message": "Unauthorized",
+  "error": "Invalid or missing API token"
+}
+```

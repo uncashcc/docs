@@ -1,0 +1,128 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Uncash API Documentation",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Support",
+      "url": "mailto:support@uncash.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.uncash.com"
+  },
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/uncash/api"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/uncash"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "authentication"
+      ]
+    },
+    {
+      "group": "Core Concepts", 
+      "pages": [
+        "concepts/cards",
+        "concepts/wallet",
+        "concepts/transactions"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction",
+        {
+          "group": "Cards",
+          "pages": [
+            "api-reference/cards/list",
+            "api-reference/cards/create", 
+            "api-reference/cards/get",
+            "api-reference/cards/topup",
+            "api-reference/cards/close",
+            "api-reference/cards/transactions"
+          ]
+        },
+        {
+          "group": "Wallet",
+          "pages": [
+            "api-reference/wallet/balance"
+          ]
+        },
+        {
+          "group": "Resources",
+          "pages": [
+            "api-reference/resources/bins",
+            "api-reference/resources/card-types"
+          ]
+        },
+        {
+          "group": "System",
+          "pages": [
+            "api-reference/system/health"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "examples/create-and-fund-card",
+        "examples/transaction-monitoring",
+        "examples/error-handling"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "error-codes",
+        "rate-limiting",
+        "webhooks",
+        "changelog"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/uncash",
+    "github": "https://github.com/uncash/api",
+    "linkedin": "https://www.linkedin.com/company/uncash"
+  },
+  "api": {
+    "baseUrl": "https://api.uncash.io",
+    "auth": {
+      "method": "bearer"
+    }
+  }
+}

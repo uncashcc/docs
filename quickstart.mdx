@@ -1,0 +1,53 @@
+---
+title: 'Quick Start'
+description: 'Start using the Uncash API in minutes'
+---
+
+## Authentication
+
+All API requests require an API token in the Authorization header:
+
+```bash
+Authorization: Bearer uc_your_api_token_here
+```
+
+## Base URL
+
+```
+https://api.uncash.io
+```
+
+## Your First Request
+
+Test your API token with a health check:
+
+```bash
+curl -X GET https://api.uncash.io/api/v1/health \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+Response:
+```json
+{
+  "success": true,
+  "data": {
+    "status": "healthy",
+    "environment": "production",
+    "timestamp": "2025-08-03T10:00:00.000Z"
+  },
+  "message": "API is healthy"
+}
+```
+
+## Response Format
+
+All API responses follow this structure:
+
+```json
+{
+  "success": boolean,
+  "data": object | array | null,
+  "message": string,
+  "error": string (only on errors)
+}
+```

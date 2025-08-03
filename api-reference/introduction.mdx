@@ -1,0 +1,57 @@
+---
+title: 'API Reference'
+description: 'Complete reference for all Uncash API endpoints'
+---
+
+## Overview
+
+The Uncash API provides endpoints for virtual card management, wallet operations, and transaction monitoring. All endpoints require authentication and return JSON responses.
+
+## Base URL
+
+```
+https://api.uncash.io
+```
+
+## Available Endpoints
+
+### Cards
+- `GET /api/v1/cards` - List user cards
+- `POST /api/v1/cards` - Create a new card
+- `GET /api/v1/cards/{id}` - Get card details
+- `POST /api/v1/cards/{id}/topup` - Top up card balance
+- `PATCH /api/v1/cards/{id}/close` - Close a card
+- `GET /api/v1/cards/transactions` - Get card transactions
+
+### Wallet
+- `GET /api/v1/wallet/balance` - Get wallet balance
+
+### Resources
+- `GET /api/v1/bins` - Get available BINs
+- `GET /api/v1/card-types` - Get card types
+
+### System
+- `GET /api/v1/health` - Health check
+
+## Response Format
+
+All API responses follow this consistent structure:
+
+```json
+{
+  "success": boolean,
+  "data": object | array | null,
+  "message": string,
+  "error": string (only present on errors),
+  "timestamp": "ISO 8601 string (only on errors)"
+}
+```
+
+## HTTP Status Codes
+
+- `200` - Success
+- `400` - Bad Request (validation errors)
+- `401` - Unauthorized (invalid/missing token)
+- `404` - Not Found
+- `429` - Too Many Requests (rate limited)  
+- `500` - Internal Server Error
