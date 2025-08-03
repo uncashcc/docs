@@ -1,0 +1,120 @@
+---
+title: "Close Card"
+api: "PATCH https://api.uncash.io/api/v1/cards/{id}/close"
+description: "Close a virtual card and return any remaining balance to wallet"
+---
+
+## Path Parameters
+
+<ParamField path="id" type="integer" required>
+  The card ID to close
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the card was closed successfully
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="balanceReturned" type="number">
+      Amount returned to wallet from card balance
+    </ResponseField>
+    <ResponseField name="message" type="string">
+      Success message with details about balance refund
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X PATCH https://api.uncash.io/api/v1/cards/123/close \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/cards/123/close', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/cards/123/close"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.patch(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response with Balance
+{
+  "success": true,
+  "data": {
+    "balanceReturned": 50.75,
+    "message": "Card closed successfully. 50.75 returned to your wallet."
+  }
+}
+```
+
+```json Response without Balance
+{
+  "success": true,
+  "data": {
+    "balanceReturned": 0,
+    "message": "Card closed successfully."
+  }
+}
+```
+
+</ResponseExample>
+
+<Info>
+  **Balance Refund**: Any remaining balance on the card is automatically returned to your wallet when the card is closed. This operation cannot be undone.
+</Info>
+
+## Error Responses
+
+<ResponseExample>
+
+```json Card Not Found
+{
+  "success": false,
+  "message": "Card not found or you do not have permission to close this card",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+```json Invalid Card ID
+{
+  "success": false,
+  "message": "Invalid card ID",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+```json Provider Error
+{
+  "success": false,
+  "message": "Failed to close card via card provider API",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+</ResponseExample>

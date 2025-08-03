@@ -1,0 +1,88 @@
+---
+title: "Wallet Balance"
+api: "GET https://api.uncash.io/api/v1/wallet/balance"
+description: "Get current wallet balance for the authenticated user"
+---
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="balance" type="number">
+      Current wallet balance in USD
+    </ResponseField>
+    <ResponseField name="updated_at" type="string">
+      ISO 8601 timestamp of last balance update
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET https://api.uncash.io/api/v1/wallet/balance \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/wallet/balance', {
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/wallet/balance"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.get(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "data": {
+    "balance": 1500.75,
+    "updated_at": "2025-08-03T10:00:00.000Z"
+  },
+  "message": "Wallet balance retrieved successfully"
+}
+```
+
+</ResponseExample>
+
+<Info>
+  **Real-time Balance**: The wallet balance is updated in real-time when cards are created, topped up, or closed. This endpoint always returns the current balance.
+</Info>
+
+## Error Responses
+
+<ResponseExample>
+
+```json Wallet Not Found
+{
+  "success": false,
+  "message": "Wallet not found",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+</ResponseExample>

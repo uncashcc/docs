@@ -1,0 +1,161 @@
+---
+title: "Card Transactions"
+api: "GET https://api.uncash.io/api/v1/cards/transactions"
+description: "Get paginated transaction history for user's cards"
+---
+
+## Query Parameters
+
+<ParamField query="page" type="integer" default="1">
+  Page number for pagination
+</ParamField>
+
+<ParamField query="limit" type="integer" default="20">
+  Number of items per page (max: 100)
+</ParamField>
+
+<ParamField query="card_id" type="integer" optional>
+  Filter transactions by specific card ID
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="data" type="array">
+      Array of card transactions
+      <Expandable title="Transaction object">
+        <ResponseField name="id" type="string">Transaction ID</ResponseField>
+        <ResponseField name="card_id" type="integer">Internal card ID</ResponseField>
+        <ResponseField name="card_name" type="string">Card nickname</ResponseField>
+        <ResponseField name="status" type="string">Transaction status (e.g., "Approved", "Declined")</ResponseField>
+        <ResponseField name="side" type="string">Transaction side ("Debit" or "Credit")</ResponseField>
+        <ResponseField name="amount" type="number">Transaction amount</ResponseField>
+        <ResponseField name="currency" type="string">Currency code (e.g., "USD")</ResponseField>
+        <ResponseField name="type" type="string">Transaction type</ResponseField>
+        <ResponseField name="masked_pan" type="string">Masked card number</ResponseField>
+        <ResponseField name="merchant_name" type="string">Merchant name (if available)</ResponseField>
+        <ResponseField name="original_amount" type="number">Original amount (before conversion)</ResponseField>
+        <ResponseField name="original_currency" type="string">Original currency</ResponseField>
+        <ResponseField name="decline_code" type="string">Decline reason code (if declined)</ResponseField>
+        <ResponseField name="transaction_created_at" type="string">Transaction timestamp</ResponseField>
+        <ResponseField name="transaction_updated_at" type="string">Last update timestamp</ResponseField>
+      </Expandable>
+    </ResponseField>
+    <ResponseField name="pagination" type="object">
+      <Expandable title="properties">
+        <ResponseField name="page" type="integer">Current page number</ResponseField>
+        <ResponseField name="limit" type="integer">Items per page</ResponseField>
+        <ResponseField name="total" type="integer">Total number of transactions</ResponseField>
+        <ResponseField name="totalPages" type="integer">Total pages available</ResponseField>
+        <ResponseField name="hasNext" type="boolean">Whether more pages exist</ResponseField>
+        <ResponseField name="hasPrev" type="boolean">Whether previous pages exist</ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL - All Transactions
+curl -X GET "https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20" \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```bash cURL - Specific Card
+curl -X GET "https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=123" \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=123', {
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/cards/transactions"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+params = {"page": 1, "limit": 20, "card_id": 123}
+
+response = requests.get(url, headers=headers, params=params)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "data": {
+    "data": [
+      {
+        "id": "67c48f6fc8614632e0b338fc",
+        "card_id": 123,
+        "card_name": "My Business Card",
+        "status": "Approved",
+        "side": "Debit",
+        "amount": 25.50,
+        "currency": "USD",
+        "type": "Transaction",
+        "masked_pan": "4559 88** **** 1234",
+        "merchant_name": "Amazon.com",
+        "original_amount": 25.50,
+        "original_currency": "USD",
+        "decline_code": null,
+        "transaction_created_at": "2025-08-03T10:30:00.000Z",
+        "transaction_updated_at": "2025-08-03T10:30:00.000Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 156,
+      "totalPages": 8,
+      "hasNext": true,
+      "hasPrev": false
+    }
+  },
+  "message": "Card transactions retrieved successfully"
+}
+```
+
+</ResponseExample>
+
+## Error Responses
+
+<ResponseExample>
+
+```json Invalid Card ID
+{
+  "success": false,
+  "message": "Invalid card_id parameter",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+```json Card Not Found
+{
+  "success": false,  
+  "message": "Card not found or access denied",
+  "timestamp": "2025-08-03T10:00:00.000Z"
+}
+```
+
+</ResponseExample>

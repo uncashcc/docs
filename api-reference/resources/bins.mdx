@@ -1,0 +1,95 @@
+---
+title: "Get BINs"
+api: "GET https://api.uncash.io/api/v1/bins"
+description: "Get all available BINs for card creation"
+---
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="array">
+  Array of available BIN objects
+  <Expandable title="BIN object">
+    <ResponseField name="id" type="string">BIN identifier</ResponseField>
+    <ResponseField name="status" type="string">BIN status (e.g., "Active")</ResponseField>
+    <ResponseField name="BIN" type="string">Bank Identification Number</ResponseField>
+    <ResponseField name="category" type="string">Card category/type</ResponseField>
+    <ResponseField name="currency" type="string">Supported currency</ResponseField>
+    <ResponseField name="3ds" type="boolean">3D Secure support</ResponseField>
+    <ResponseField name="digital_wallet" type="boolean">Digital wallet support</ResponseField>
+    <ResponseField name="address" type="string">Billing address associated with BIN</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET https://api.uncash.io/api/v1/bins \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/bins', {
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/bins"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.get(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "data": [
+    {
+      "id": "6705952d3ec949063b9241a0",
+      "status": "Active",
+      "BIN": "505849",
+      "category": "Platinum || Universal",
+      "currency": "USD",
+      "3ds": true,
+      "digital_wallet": true,
+      "address": "1234 Elm St, San Francisco, CA, 94016, US"
+    },
+    {
+      "id": "67ade1eef9f79c20b4e789ab",
+      "status": "Active", 
+      "BIN": "455988",
+      "category": "Standard",
+      "currency": "USD",
+      "3ds": false,
+      "digital_wallet": false,
+      "address": "2381 Zanker Rd Ste 110, San Jose, CA, 95131, US"
+    }
+  ],
+  "message": "Bins retrieved successfully"
+}
+```
+
+</ResponseExample>
+
+<Info>
+  **BIN Selection**: Choose the appropriate BIN ID when creating cards. Different BINs may have different features like 3D Secure support or digital wallet compatibility.
+</Info>
