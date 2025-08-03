@@ -1,10 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Uncash API Documentation",
-  "logo": {
-    "dark": "/logo/icon.png",
-    "light": "/logo/icon.png"
-  },
+  "name": "UnCash API Docs",
   "favicon": "/logo/icon.png",
   "colors": {
     "primary": "#71717a",
