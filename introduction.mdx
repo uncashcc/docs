@@ -1,54 +1,11 @@
 ---
 title: Introduction
-description: 'Welcome to the Uncash API - Your gateway to virtual card management'
+description: 'Virtual card management API for developers'
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
+## Uncash API
 
-## Welcome to Uncash API
-
-The Uncash API is a production-ready API that provides comprehensive virtual card management capabilities. Built with security, performance, and developer experience in mind.
-
-<Note>
-  This API is designed for financial applications and implements enterprise-grade security measures including database locking, input validation, and authentication.
-</Note>
-
-## What you'll find in these docs
-
-<CardGroup cols={2}>
-  <Card
-    title="Quick Start Guide"
-    icon="rocket"
-    href="/quickstart"
-  >
-    Get up and running with your first API call in minutes
-  </Card>
-  <Card
-    title="API Documentation"
-    icon="book-open"
-    href="/api-reference/cards/list"
-  >
-    Complete reference for all endpoints, parameters, and responses
-  </Card>
-</CardGroup>
-
-## Key Features
-
-- **Virtual Card Management**: Create, fund, and manage virtual payment cards
-- **Wallet System**: Built-in wallet with transaction tracking
-- **Card Provider Integration**: Seamless integration with card issuing services
-- **Security First**: API token authentication, rate limiting, and input validation
-- **Global Deployment**: Low latency worldwide
-- **Transaction Safety**: Database-level locking prevents race conditions
+Production-ready API for virtual card management with wallet integration.
 
 ## Base URL
 
@@ -58,31 +15,8 @@ https://api.uncash.io
 
 ## Authentication
 
-All API requests require authentication using API tokens:
-
 ```bash
 Authorization: Bearer uc_your_api_token_here
 ```
 
-<Warning>
-  Keep your API tokens secure and never expose them in client-side code. All financial operations require valid authentication.
-</Warning>
-
-## Need Help?
-
-<CardGroup cols={2}>
-  <Card
-    title="Telegram Support"
-    icon="telegram"
-    href="https://t.me/uncashio"
-  >
-    Join our Telegram community for support
-  </Card>
-  <Card
-    title="Dashboard"
-    icon="user"
-    href="https://uncash.io/dashboard/api"
-  >
-    Manage your API tokens
-  </Card>
-</CardGroup>
+Get your API token from [dashboard/api](https://uncash.io/dashboard/api)
