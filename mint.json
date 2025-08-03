@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "UnCash API Docs",
+  "name": "UnCash API",
   "favicon": "/logo/icon.png",
   "colors": {
     "primary": "#71717a",
@@ -44,7 +44,7 @@
           "group": "Cards",
           "pages": [
             "api-reference/cards/list",
-            "api-reference/cards/create", 
+            "api-reference/cards/create",
             "api-reference/cards/get",
             "api-reference/cards/topup",
             "api-reference/cards/close",
