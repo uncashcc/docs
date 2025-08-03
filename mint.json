@@ -18,29 +18,18 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:support@uncash.com"
+      "url": "https://t.me/uncashio"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.uncash.com"
+    "url": "https://dashboard.uncash.io"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
   "anchors": [
     {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/uncash/api"
-    },
-    {
-      "name": "Community",
-      "icon": "discord",
-      "url": "https://discord.gg/uncash"
+      "name": "Telegram",
+      "icon": "telegram",
+      "url": "https://t.me/uncashio"
     }
   ],
   "navigation": [
@@ -53,17 +42,8 @@
       ]
     },
     {
-      "group": "Core Concepts", 
-      "pages": [
-        "concepts/cards",
-        "concepts/wallet",
-        "concepts/transactions"
-      ]
-    },
-    {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction",
         {
           "group": "Cards",
           "pages": [
@@ -95,28 +75,10 @@
           ]
         }
       ]
-    },
-    {
-      "group": "Examples",
-      "pages": [
-        "examples/create-and-fund-card",
-        "examples/transaction-monitoring",
-        "examples/error-handling"
-      ]
-    },
-    {
-      "group": "Resources",
-      "pages": [
-        "error-codes",
-        "rate-limiting",
-        "webhooks",
-        "changelog"
-      ]
     }
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/uncash",
-    "github": "https://github.com/uncash/api",
     "linkedin": "https://www.linkedin.com/company/uncash"
   },
   "api": {
