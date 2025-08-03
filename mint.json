@@ -2,10 +2,10 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Uncash API Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/icon.png",
+    "light": "/logo/icon.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/icon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.uncash.io"
+    "url": "https://uncash.io/dashboard"
   },
   "anchors": [
     {
