@@ -73,10 +73,6 @@
       ]
     }
   ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/uncash",
-    "linkedin": "https://www.linkedin.com/company/uncash"
-  },
   "api": {
     "baseUrl": "https://api.uncash.io",
     "auth": {
