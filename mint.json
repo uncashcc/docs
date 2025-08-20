@@ -48,7 +48,8 @@
             "api-reference/cards/get",
             "api-reference/cards/topup",
             "api-reference/cards/close",
-            "api-reference/cards/transactions"
+            "api-reference/cards/transactions",
+            "api-reference/cards/otps"
           ]
         },
         {
