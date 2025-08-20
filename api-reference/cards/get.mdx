@@ -36,6 +36,14 @@ description: "Get detailed information about a specific card including sensitive
     <ResponseField name="category" type="string">Card category</ResponseField>
     <ResponseField name="bin_id" type="string">Associated BIN</ResponseField>
     <ResponseField name="3ds" type="boolean">3D Secure enabled</ResponseField>
+    <ResponseField name="auto_topup" type="object">
+      <Expandable title="Auto top-up settings">
+        <ResponseField name="enabled" type="boolean">Whether auto top-up is enabled</ResponseField>
+        <ResponseField name="min_balance" type="number">Minimum balance threshold</ResponseField>
+        <ResponseField name="topup_amount" type="number">Amount to add when triggered</ResponseField>
+        <ResponseField name="last_triggered" type="string">Last trigger timestamp (ISO 8601)</ResponseField>
+      </Expandable>
+    </ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -95,7 +103,13 @@ data = response.json()
     "currency_short_name": "USD",
     "category": "Business",
     "bin_id": "67ee33445566778899aabbcc",
-    "3ds": true
+    "3ds": true,
+    "auto_topup": {
+      "enabled": true,
+      "min_balance": 10.00,
+      "topup_amount": 50.00,
+      "last_triggered": "2025-08-15T14:30:00.000Z"
+    }
   },
   "message": "Card details retrieved successfully"
 }
