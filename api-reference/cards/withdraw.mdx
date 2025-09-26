@@ -6,7 +6,7 @@ description: "Withdraw funds from a virtual card to your wallet balance"
 
 ## Path Parameters
 
-<ParamField path="id" type="integer" required>
+<ParamField path="id" type="string" required>
   The card ID to withdraw from
 </ParamField>
 
@@ -24,9 +24,11 @@ description: "Withdraw funds from a virtual card to your wallet balance"
 
 <ResponseField name="data" type="object">
   <Expandable title="properties">
-    <ResponseField name="message" type="string">
-      Success message with amount withdrawn
-    </ResponseField>
+    <ResponseField name="card_id" type="string">Card ID that was withdrawn from</ResponseField>
+    <ResponseField name="transaction_id" type="string">Transaction ID for this withdrawal</ResponseField>
+    <ResponseField name="new_balance" type="number">New card balance after withdrawal</ResponseField>
+    <ResponseField name="amount_withdrawn" type="number">Amount that was withdrawn</ResponseField>
+    <ResponseField name="wallet_balance" type="number">New wallet balance after withdrawal</ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -82,8 +84,14 @@ result = response.json()
 {
   "success": true,
   "data": {
-    "message": "Successfully withdrew 50.00 from your card to wallet"
-  }
+    "card_id": "123",
+    "transaction_id": "txn_456789",
+    "new_balance": 150.00,
+    "amount_withdrawn": 50.00,
+    "wallet_balance": 1250.00
+  },
+  "message": "Withdrawal successful",
+  "timestamp": "2025-09-26T10:30:00.000Z"
 }
 ```
 
@@ -96,6 +104,7 @@ result = response.json()
 - **Decimal places**: Maximum 2 decimal places
 - **Card balance**: Withdrawal amount cannot exceed current card balance
 - **Card type**: Only FinUp cards support withdrawals
+- **Rate limiting**: Must wait 15 minutes between withdrawals
 
 <Info>
   **Atomic Operation**: The withdrawal process is atomic - it either succeeds completely or fails completely. Your card is only debited if the wallet credit succeeds.

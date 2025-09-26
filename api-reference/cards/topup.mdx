@@ -6,7 +6,7 @@ description: "Add funds to a virtual card from your wallet balance"
 
 ## Path Parameters
 
-<ParamField path="id" type="integer" required>
+<ParamField path="id" type="string" required>
   The card ID to top up
 </ParamField>
 
@@ -24,9 +24,11 @@ description: "Add funds to a virtual card from your wallet balance"
 
 <ResponseField name="data" type="object">
   <Expandable title="properties">
-    <ResponseField name="message" type="string">
-      Success message with amount topped up
-    </ResponseField>
+    <ResponseField name="card_id" type="string">Card ID that was topped up</ResponseField>
+    <ResponseField name="transaction_id" type="string">Transaction ID for this topup</ResponseField>
+    <ResponseField name="new_balance" type="number">New card balance after topup</ResponseField>
+    <ResponseField name="platform_fee" type="number">Platform fee charged for this topup</ResponseField>
+    <ResponseField name="total_charged" type="number">Total amount charged from wallet (amount + platform fee)</ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -37,7 +39,7 @@ description: "Add funds to a virtual card from your wallet balance"
 <RequestExample>
 
 ```bash cURL
-curl -X POST https://api.uncash.io/api/v1/cards/123/topup \
+curl -X POST https://api.uncash.io/api/v1/cards/abc123/topup \
   -H "Authorization: Bearer uc_your_api_token_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -46,7 +48,7 @@ curl -X POST https://api.uncash.io/api/v1/cards/123/topup \
 ```
 
 ```javascript JavaScript
-const response = await fetch('https://api.uncash.io/api/v1/cards/123/topup', {
+const response = await fetch('https://api.uncash.io/api/v1/cards/abc123/topup', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer uc_your_api_token_here',
@@ -82,8 +84,14 @@ result = response.json()
 {
   "success": true,
   "data": {
-    "message": "Successfully added 100.00 to your card"
-  }
+    "card_id": "abc123",
+    "transaction_id": "txn_456789",
+    "new_balance": 250.00,
+    "platform_fee": 5.00,
+    "total_charged": 105.00
+  },
+  "message": "Card topped up successfully",
+  "timestamp": "2025-09-26T10:30:00.000Z"
 }
 ```
 

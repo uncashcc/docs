@@ -14,7 +14,7 @@ description: "Get paginated transaction history for user's cards"
   Number of items per page (max: 100)
 </ParamField>
 
-<ParamField query="card_id" type="integer" optional>
+<ParamField query="card_id" type="string" optional>
   Filter transactions by specific card ID
 </ParamField>
 
@@ -30,7 +30,7 @@ description: "Get paginated transaction history for user's cards"
       Array of card transactions
       <Expandable title="Transaction object">
         <ResponseField name="id" type="string">Transaction ID</ResponseField>
-        <ResponseField name="card_id" type="integer">Internal card ID</ResponseField>
+        <ResponseField name="card_id" type="string">Internal card ID</ResponseField>
         <ResponseField name="card_name" type="string">Card nickname</ResponseField>
         <ResponseField name="status" type="string">Transaction status (e.g., "Approved", "Declined")</ResponseField>
         <ResponseField name="side" type="string">Transaction side ("Debit" or "Credit")</ResponseField>
@@ -71,12 +71,12 @@ curl -X GET "https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20" \
 ```
 
 ```bash cURL - Specific Card
-curl -X GET "https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=123" \
+curl -X GET "https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=abc123" \
   -H "Authorization: Bearer uc_your_api_token_here"
 ```
 
 ```javascript JavaScript
-const response = await fetch('https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=123', {
+const response = await fetch('https://api.uncash.io/api/v1/cards/transactions?page=1&limit=20&card_id=abc123', {
   headers: {
     'Authorization': 'Bearer uc_your_api_token_here'
   }
@@ -107,7 +107,7 @@ data = response.json()
     "data": [
       {
         "id": "67c48f6fc8614632e0b338fc",
-        "card_id": 123,
+        "card_id": "abc123",
         "card_name": "My Business Card",
         "status": "Approved",
         "side": "Debit",

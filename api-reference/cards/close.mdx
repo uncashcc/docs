@@ -6,7 +6,7 @@ description: "Close a virtual card and return any remaining balance to wallet"
 
 ## Path Parameters
 
-<ParamField path="id" type="integer" required>
+<ParamField path="id" type="string" required>
   The card ID to close
 </ParamField>
 
@@ -18,12 +18,10 @@ description: "Close a virtual card and return any remaining balance to wallet"
 
 <ResponseField name="data" type="object">
   <Expandable title="properties">
-    <ResponseField name="balanceReturned" type="number">
-      Amount returned to wallet from card balance
-    </ResponseField>
-    <ResponseField name="message" type="string">
-      Success message with details about balance refund
-    </ResponseField>
+    <ResponseField name="card_id" type="string">Card ID that was closed</ResponseField>
+    <ResponseField name="balance_withdrawn" type="number">Amount returned to wallet from card balance</ResponseField>
+    <ResponseField name="transaction_id" type="string">Transaction ID for the balance withdrawal (if any)</ResponseField>
+    <ResponseField name="new_wallet_balance" type="number">New wallet balance after balance return</ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -67,9 +65,13 @@ data = response.json()
 {
   "success": true,
   "data": {
-    "balanceReturned": 50.75,
-    "message": "Card closed successfully. 50.75 returned to your wallet."
-  }
+    "card_id": "123",
+    "balance_withdrawn": 50.75,
+    "transaction_id": "txn_456789",
+    "new_wallet_balance": 1300.75
+  },
+  "message": "Card closed successfully",
+  "timestamp": "2025-09-26T10:30:00.000Z"
 }
 ```
 
@@ -77,9 +79,13 @@ data = response.json()
 {
   "success": true,
   "data": {
-    "balanceReturned": 0,
-    "message": "Card closed successfully."
-  }
+    "card_id": "123",
+    "balance_withdrawn": 0,
+    "transaction_id": null,
+    "new_wallet_balance": 1250.00
+  },
+  "message": "Card closed successfully",
+  "timestamp": "2025-09-26T10:30:00.000Z"
 }
 ```
 
@@ -88,6 +94,10 @@ data = response.json()
 <Info>
   **Balance Refund**: Any remaining balance on the card is automatically returned to your wallet when the card is closed. This operation cannot be undone.
 </Info>
+
+<Warning>
+  **Rate Limiting**: Must wait 15 minutes between withdrawals. This applies to card closures that trigger automatic balance withdrawals.
+</Warning>
 
 ## Error Responses
 

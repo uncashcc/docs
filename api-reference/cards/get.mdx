@@ -6,7 +6,7 @@ description: "Get detailed information about a specific card including sensitive
 
 ## Path Parameters
 
-<ParamField path="id" type="integer" required>
+<ParamField path="id" type="string" required>
   The card ID to retrieve details for
 </ParamField>
 
@@ -18,7 +18,7 @@ description: "Get detailed information about a specific card including sensitive
 
 <ResponseField name="data" type="object">
   <Expandable title="Card details">
-    <ResponseField name="id" type="integer">Database card ID</ResponseField>
+    <ResponseField name="id" type="string">Database card ID</ResponseField>
     <ResponseField name="created_at" type="string">ISO 8601 timestamp</ResponseField>
     <ResponseField name="updated_at" type="string">ISO 8601 timestamp</ResponseField>
     <ResponseField name="PAN" type="string">Full card number (sensitive)</ResponseField>
@@ -86,7 +86,7 @@ data = response.json()
 {
   "success": true,
   "data": {
-    "id": 123,
+    "id": "123",
     "created_at": "2025-01-15T10:30:45.123Z",
     "updated_at": "2025-06-20T16:45:30.789Z",
     "PAN": "1234567812345678",

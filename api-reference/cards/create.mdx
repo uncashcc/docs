@@ -14,8 +14,12 @@ description: "Create a new virtual card with automatic wallet deduction"
   Card nickname (1-255 characters)
 </ParamField>
 
-<ParamField body="card_type" type="integer" required>
-  Card type ID (get from `/api/v1/card-types`)
+<ParamField body="planId" type="integer" required>
+  Card plan ID (get from `/api/v1/card-plans`)
+</ParamField>
+
+<ParamField body="coupon_id" type="string">
+  Optional coupon ID for discounts
 </ParamField>
 
 ## Response
@@ -26,7 +30,7 @@ description: "Create a new virtual card with automatic wallet deduction"
 
 <ResponseField name="data" type="object">
   <Expandable title="Card details">
-    <ResponseField name="id" type="integer">Database card ID</ResponseField>
+    <ResponseField name="id" type="string">Database card ID</ResponseField>
     <ResponseField name="created_at" type="string">ISO 8601 timestamp</ResponseField>
     <ResponseField name="updated_at" type="string">ISO 8601 timestamp</ResponseField>
     <ResponseField name="currency" type="string">Card currency (e.g., "USD")</ResponseField>
@@ -58,7 +62,7 @@ curl -X POST https://api.uncash.io/api/v1/cards \
   -d '{
     "bin_id": "6705952d3ec949063b9241a0",
     "name": "My Business Card",
-    "card_type": 1
+    "planId": 1
   }'
 ```
 
@@ -72,7 +76,7 @@ const response = await fetch('https://api.uncash.io/api/v1/cards', {
   body: JSON.stringify({
     bin_id: "6705952d3ec949063b9241a0",
     name: "My Business Card",
-    card_type: 1
+    planId: 1
   })
 });
 
@@ -90,7 +94,7 @@ headers = {
 data = {
     "bin_id": "6705952d3ec949063b9241a0",
     "name": "My Business Card", 
-    "card_type": 1
+    "planId": 1
 }
 
 response = requests.post(url, headers=headers, json=data)
@@ -105,7 +109,7 @@ result = response.json()
 {
   "success": true,
   "data": {
-    "id": 123,
+    "id": "123",
     "created_at": "2025-02-17T18:24:17.653Z",
     "updated_at": "2025-02-17T18:24:17.653Z",
     "currency": "USD",
@@ -122,7 +126,8 @@ result = response.json()
     "3ds": false,
     "address": "2381 Zanker Rd Ste 110, San Jose, CA, 95131, US"
   },
-  "message": "Card created successfully"
+  "message": "Card created successfully",
+  "timestamp": "2025-09-26T10:30:00.000Z"
 }
 ```
 

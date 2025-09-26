@@ -48,10 +48,10 @@
             "api-reference/cards/get",
             "api-reference/cards/topup",
             "api-reference/cards/withdraw",
-            "api-reference/cards/auto-topup",
             "api-reference/cards/close",
             "api-reference/cards/transactions",
-            "api-reference/cards/otps"
+            "api-reference/cards/otps",
+            "api-reference/cards/request-otp"
           ]
         },
         {
@@ -64,7 +64,7 @@
           "group": "Resources",
           "pages": [
             "api-reference/resources/bins",
-            "api-reference/resources/card-types"
+            "api-reference/resources/card-plans"
           ]
         },
         {
