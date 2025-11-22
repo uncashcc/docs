@@ -10,6 +10,10 @@ description: "Get all user's virtual cards with summary information"
   Indicates if the request was successful
 </ResponseField>
 
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
 <ResponseField name="data" type="object">
   <Expandable title="properties">
     <ResponseField name="total_balance" type="number">Total balance across all cards</ResponseField>
@@ -17,22 +21,21 @@ description: "Get all user's virtual cards with summary information"
     <ResponseField name="cards" type="array">
       Array of user cards
       <Expandable title="Card object">
-        <ResponseField name="id" type="string">Card ID</ResponseField>
-        <ResponseField name="name" type="string">Card name</ResponseField>
-        <ResponseField name="status" type="string">Card status (active, closed, etc.)</ResponseField>
-        <ResponseField name="balance" type="number">Card balance</ResponseField>
-        <ResponseField name="category" type="string">Card category (Wallet, Online)</ResponseField>
+        <ResponseField name="id" type="string">Card ID (UUID)</ResponseField>
+        <ResponseField name="name" type="string">Card nickname</ResponseField>
+        <ResponseField name="status" type="string">Card status ("active", "frozen", "closed")</ResponseField>
+        <ResponseField name="balance" type="number">Current card balance</ResponseField>
+        <ResponseField name="category" type="string">Card category ("wallet" or "online")</ResponseField>
         <ResponseField name="card_plan" type="number">Card plan ID</ResponseField>
-        <ResponseField name="card_number" type="string">Masked card number</ResponseField>
+        <ResponseField name="card_number" type="string">Masked card number (e.g., "************1249")</ResponseField>
         <ResponseField name="created_at" type="string">ISO 8601 timestamp</ResponseField>
-        <ResponseField name="updated_at" type="string">ISO 8601 timestamp</ResponseField>
       </Expandable>
     </ResponseField>
   </Expandable>
 </ResponseField>
 
-<ResponseField name="message" type="string">
-  Success message
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp
 </ResponseField>
 
 <RequestExample>
@@ -69,36 +72,24 @@ data = response.json()
 ```json Response
 {
   "success": true,
+  "message": "User cards retrieved successfully",
   "data": {
-    "total_balance": 2450.50,
-    "total_cards": 3,
+    "total_balance": 2140.15,
+    "total_cards": 41,
     "cards": [
       {
-        "id": "123",
-        "name": "My Business Card",
+        "id": "card-id",
+        "name": "card-name",
         "status": "active",
-        "balance": 1500.00,
-        "category": "Wallet",
-        "card_plan": 2,
-        "card_number": "4559 88** **** 1234",
-        "created_at": "2025-08-03T10:00:00.000Z",
-        "updated_at": "2025-08-03T10:00:00.000Z"
-      },
-      {
-        "id": "124",
-        "name": "Shopping Card",
-        "status": "active",
-        "balance": 950.50,
-        "category": "Online",
+        "balance": 10,
+        "category": "wallet",
         "card_plan": 1,
-        "card_number": "4559 88** **** 5678",
-        "created_at": "2025-08-02T14:30:00.000Z",
-        "updated_at": "2025-08-02T14:30:00.000Z"
+        "card_number": "************1234",
+        "created_at": "2025-11-22T08:26:48.998433+00:00"
       }
     ]
   },
-  "message": "User cards retrieved successfully",
-  "timestamp": "2025-09-26T10:30:00.000Z"
+  "timestamp": "2025-11-22T09:27:01.970Z"
 }
 ```
 

@@ -1,0 +1,116 @@
+---
+title: "Unfreeze Card"
+api: "PATCH https://api.uncash.io/api/v1/cards/{id}/unfreeze"
+description: "Unfreeze a card to restore normal functionality"
+---
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  The card ID (UUID) to unfreeze
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the card was unfrozen successfully
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="card_id" type="string">Card ID (UUID) that was unfrozen</ResponseField>
+    <ResponseField name="status" type="string">New card status ("active")</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X PATCH https://api.uncash.io/api/v1/cards/card-id/unfreeze \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/cards/card-id/unfreeze', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/cards/card-id/unfreeze"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.patch(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "message": "Card unfrozen successfully",
+  "data": {
+    "card_id": "card-id",
+    "status": "active"
+  },
+  "timestamp": "2025-11-22T11:35:00.000Z"
+}
+```
+
+</ResponseExample>
+
+## Behavior
+
+- **Transaction Restore**: Card transactions will be enabled again
+- **Balance Preserved**: Card balance remains unchanged
+- **Provider Update**: Unfreeze status is applied at the provider level
+- **Status Change**: Card status changes from "frozen" to "active"
+
+<Info>
+  **Security**: Only unfreeze your card when you're confident it's safe to use again.
+</Info>
+
+## Validation Rules
+
+- Card must be in "frozen" status
+- Card must have a valid `provider_id` (not 'temp')
+
+## Error Responses
+
+<ResponseExample>
+
+```json Not Frozen
+{
+  "success": false,
+  "message": "Only frozen cards can be unfrozen",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+```json Card Not Ready
+{
+  "success": false,
+  "message": "Card is not ready for unfreeze operation",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+</ResponseExample>

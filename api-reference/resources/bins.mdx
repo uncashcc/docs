@@ -1,7 +1,7 @@
 ---
 title: "Get BINs"
 api: "GET https://api.uncash.io/api/v1/bins"
-description: "Get all available BINs for card creation"
+description: "Get all available BINs (Bank Identification Numbers) for card creation"
 ---
 
 ## Response
@@ -10,22 +10,26 @@ description: "Get all available BINs for card creation"
   Indicates if the request was successful
 </ResponseField>
 
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
 <ResponseField name="data" type="array">
   Array of available BIN objects
   <Expandable title="BIN object">
-    <ResponseField name="id" type="string">BIN identifier</ResponseField>
-    <ResponseField name="status" type="string">BIN status (e.g., "Active")</ResponseField>
-    <ResponseField name="BIN" type="string">Bank Identification Number</ResponseField>
-    <ResponseField name="category" type="string">Card category/type</ResponseField>
-    <ResponseField name="currency" type="string">Supported currency</ResponseField>
-    <ResponseField name="3ds" type="boolean">3D Secure support</ResponseField>
-    <ResponseField name="digital_wallet" type="boolean">Digital wallet support</ResponseField>
-    <ResponseField name="address" type="string">Billing address associated with BIN</ResponseField>
+    <ResponseField name="id" type="string">BIN identifier (UUID)</ResponseField>
+    <ResponseField name="bin" type="string">Bank Identification Number (6 digits)</ResponseField>
+    <ResponseField name="network" type="string">Card network (e.g., "master", "visa")</ResponseField>
+    <ResponseField name="threeDS" type="boolean">3D Secure support enabled</ResponseField>
+    <ResponseField name="wallet" type="boolean">Digital wallet support enabled</ResponseField>
+    <ResponseField name="currency" type="string">Supported currency (e.g., "USD")</ResponseField>
+    <ResponseField name="country" type="string">Country code (e.g., "HK", "US")</ResponseField>
+    <ResponseField name="initial_balance" type="number">Initial balance added to card upon creation</ResponseField>
   </Expandable>
 </ResponseField>
 
-<ResponseField name="message" type="string">
-  Success message
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp
 </ResponseField>
 
 <RequestExample>
@@ -62,34 +66,47 @@ data = response.json()
 ```json Response
 {
   "success": true,
+  "message": "Bins retrieved successfully",
   "data": [
     {
-      "id": "6705952d3ec949063b9241a0",
-      "status": "Active",
-      "BIN": "505849",
-      "category": "Platinum || Universal",
+      "id": "bin-id",
+      "bin": "55555",
+      "network": "master",
+      "threeDS": true,
+      "wallet": true,
       "currency": "USD",
-      "3ds": true,
-      "digital_wallet": true,
-      "address": "1234 Elm St, San Francisco, CA, 94016, US"
+      "country": "HK",
+      "initial_balance": 10
     },
     {
-      "id": "67ade1eef9f79c20b4e789ab",
-      "status": "Active", 
-      "BIN": "455988",
-      "category": "Standard",
+      "id": "bin-id",
+      "bin": "453388",
+      "network": "visa",
+      "threeDS": false,
+      "wallet": false,
       "currency": "USD",
-      "3ds": false,
-      "digital_wallet": false,
-      "address": "2381 Zanker Rd Ste 110, San Jose, CA, 95131, US"
+      "country": "US",
+      "initial_balance": 5
     }
   ],
-  "message": "Bins retrieved successfully"
+  "timestamp": "2025-11-22T12:00:00.000Z"
 }
 ```
 
 </ResponseExample>
 
+## BIN Properties Explained
+
+- **network**: The card network provider (Mastercard, Visa, etc.)
+- **threeDS**: Whether the BIN supports 3D Secure authentication for enhanced security
+- **wallet**: Whether the BIN supports digital wallet features (Apple Pay, Google Pay, etc.)
+- **initial_balance**: The starting balance that will be added to the card when created with this BIN
+- **country**: The issuing country for the BIN
+
 <Info>
-  **BIN Selection**: Choose the appropriate BIN ID when creating cards. Different BINs may have different features like 3D Secure support or digital wallet compatibility.
+  **BIN Selection**: Choose the appropriate BIN ID when creating cards. Consider the `network`, `threeDS`, `wallet`, and `country` properties based on your use case. The `initial_balance` will be automatically deposited to the card upon creation.
 </Info>
+
+<Warning>
+  Only BINs with `status: "enabled"` are returned by this endpoint. Disabled BINs cannot be used for card creation.
+</Warning>

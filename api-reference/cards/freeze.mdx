@@ -1,0 +1,124 @@
+---
+title: "Freeze Card"
+api: "PATCH https://api.uncash.io/api/v1/cards/{id}/freeze"
+description: "Temporarily freeze a card to block all transactions"
+---
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  The card ID (UUID) to freeze
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the card was frozen successfully
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="properties">
+    <ResponseField name="card_id" type="string">Card ID (UUID) that was frozen</ResponseField>
+    <ResponseField name="status" type="string">New card status ("frozen")</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X PATCH https://api.uncash.io/api/v1/cards/card-id/freeze \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/cards/card-id/freeze', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/cards/card-id/freeze"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.patch(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "message": "Card frozen successfully",
+  "data": {
+    "card_id": "card-id",
+    "status": "frozen"
+  },
+  "timestamp": "2025-11-22T11:30:00.000Z"
+}
+```
+
+</ResponseExample>
+
+## Behavior
+
+- **Transaction Blocking**: All card transactions will be declined while frozen
+- **Balance Preserved**: Card balance remains unchanged
+- **Reversible**: Card can be unfrozen using the unfreeze endpoint
+- **Provider Update**: Freeze status is applied at the provider level
+
+<Info>
+  **Use Case**: Freeze your card temporarily if you suspect unauthorized access or lose your physical card details.
+</Info>
+
+## Validation Rules
+
+- Card must be in "active" status
+- Card must have a valid `provider_id` (not 'temp')
+
+## Error Responses
+
+<ResponseExample>
+
+```json Already Frozen
+{
+  "success": false,
+  "message": "Card is already frozen",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+```json Invalid Status
+{
+  "success": false,
+  "message": "Only active cards can be frozen",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+```json Card Not Ready
+{
+  "success": false,
+  "message": "Card is not ready for freeze operation",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+</ResponseExample>

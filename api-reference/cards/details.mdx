@@ -1,0 +1,107 @@
+---
+title: "Get Card Sensitive Details"
+api: "GET https://api.uncash.io/api/v1/cards/{id}/details"
+description: "Get sensitive card information including PAN, CVV, and expiration date"
+---
+
+## Path Parameters
+
+<ParamField path="id" type="string" required>
+  The card ID (UUID) to retrieve sensitive details for
+</ParamField>
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="Sensitive card details">
+    <ResponseField name="id" type="string">Database card ID (UUID)</ResponseField>
+    <ResponseField name="PAN" type="string">Full card number (16 digits)</ResponseField>
+    <ResponseField name="CVV" type="string">Card verification value (3-4 digits)</ResponseField>
+    <ResponseField name="EXP" type="string">Expiration date (MM/YY format)</ResponseField>
+    <ResponseField name="masked_PAN" type="string">Masked card number</ResponseField>
+    <ResponseField name="name" type="string">Card nickname</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="timestamp" type="string">
+  ISO 8601 timestamp
+</ResponseField>
+
+<RequestExample>
+
+```bash cURL
+curl -X GET https://api.uncash.io/api/v1/cards/card-id/details \
+  -H "Authorization: Bearer uc_your_api_token_here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.uncash.io/api/v1/cards/card-id/details', {
+  headers: {
+    'Authorization': 'Bearer uc_your_api_token_here'
+  }
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = "https://api.uncash.io/api/v1/cards/card-id/details"
+headers = {"Authorization": "Bearer uc_your_api_token_here"}
+
+response = requests.get(url, headers=headers)
+data = response.json()
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "success": true,
+  "message": "Card sensitive details retrieved successfully",
+  "data": {
+    "id": "card-id",
+    "PAN": "123123123123123",
+    "CVV": "123",
+    "EXP": "11/23",
+    "masked_PAN": "************1234",
+    "name": "cardname"
+  },
+  "timestamp": "2025-11-22T09:31:29.350Z"
+}
+```
+
+</ResponseExample>
+
+<Warning>
+  **Highly Sensitive Data**: This endpoint returns full card numbers and CVVs. Only use this for legitimate card operations and ensure:
+  - Data is transmitted over HTTPS only
+  - Sensitive data is never logged or stored insecurely
+  - Access is restricted to authorized personnel/systems only
+  - Compliance with PCI-DSS requirements
+</Warning>
+
+## Error Responses
+
+<ResponseExample>
+
+```json Card Not Found
+{
+  "success": false,
+  "message": "Card not found or access denied",
+  "timestamp": "2025-11-22T10:00:00.000Z"
+}
+```
+
+</ResponseExample>
